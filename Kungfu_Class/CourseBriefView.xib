@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="r1k-a5-IJI" customClass="CourseBriefView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="课程相关" translatesAutoresizingMaskIntoConstraints="NO" id="yor-GQ-1bX">
+                    <rect key="frame" x="11" y="11" width="15" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="Fxa-Eb-8kK"/>
+                        <constraint firstAttribute="width" constant="14" id="URF-e6-Um7"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="课程简介" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaB-yb-eDd">
+                    <rect key="frame" x="40" y="8" width="70" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="iwn-lq-TRd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqS-ls-IwR">
+                    <rect key="frame" x="0.0" y="46" width="375" height="1"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="d68-YN-Kjt"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5C-Yr-5gF">
+                    <rect key="frame" x="0.0" y="46" width="375" height="151"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.51764705879999995" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="yor-GQ-1bX" firstAttribute="leading" secondItem="r1k-a5-IJI" secondAttribute="leading" constant="10" id="04I-q2-A1O"/>
+                <constraint firstItem="BaB-yb-eDd" firstAttribute="centerY" secondItem="yor-GQ-1bX" secondAttribute="centerY" id="4fA-tm-Ckd"/>
+                <constraint firstItem="BaB-yb-eDd" firstAttribute="leading" secondItem="yor-GQ-1bX" secondAttribute="trailing" constant="14" id="7VM-5S-n1l"/>
+                <constraint firstItem="UqS-ls-IwR" firstAttribute="top" secondItem="BaB-yb-eDd" secondAttribute="bottom" constant="12" id="BYa-en-m0v"/>
+                <constraint firstItem="UqS-ls-IwR" firstAttribute="leading" secondItem="r1k-a5-IJI" secondAttribute="leading" id="Iya-FJ-CDf"/>
+                <constraint firstAttribute="trailing" secondItem="UqS-ls-IwR" secondAttribute="trailing" id="uR1-3u-53X"/>
+                <constraint firstItem="yor-GQ-1bX" firstAttribute="top" secondItem="r1k-a5-IJI" secondAttribute="top" constant="12" id="zqk-lW-jfT"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="contentLab" destination="Y5C-Yr-5gF" id="ffu-Nl-Ivd"/>
+            </connections>
+            <point key="canvasLocation" x="161.5" y="142"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="课程相关" width="14" height="14"/>
+    </resources>
+</document>

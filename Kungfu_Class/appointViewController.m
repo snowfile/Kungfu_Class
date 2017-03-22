@@ -1,0 +1,38 @@
+//
+//  appointViewController.m
+//  Kungfu_Class
+//
+//  Created by 静静 on 20/03/2017.
+//  Copyright © 2017 秦静. All rights reserved.
+//
+
+#import "appointViewController.h"
+
+@interface appointViewController ()
+
+@end
+
+@implementation appointViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"预约管理";
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

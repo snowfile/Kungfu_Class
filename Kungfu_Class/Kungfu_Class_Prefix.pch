@@ -1,0 +1,79 @@
+//
+//  Kungfu_Class_Prefix.pch
+//  Kungfu_Class
+//
+//  Created by 静静 on 12/14/16.
+//  Copyright © 2016 秦静. All rights reserved.
+//
+
+#ifndef Kungfu_Class_Prefix_pch
+#define Kungfu_Class_Prefix_pch
+
+#define IMG_URL @"http://dentist-test.oss-cn-hangzhou.aliyuncs.com/"
+
+#import "AFNetworking.h"
+#import <AFNetworking/AFNetworkReachabilityManager.h>
+#import "MJRefresh.h"
+#import "MBProgressHUD.h"
+#import "MBProgressHUD+MJ.h"
+#import "NetService.h"
+#import "KVNProgress.h"
+#import "NSString+file.h"
+#import <RongIMKit/RongIMKit.h>
+#import <AliyunOSSiOS/OSSService.h>
+#import "UIImageView+AFNetworking.h"
+#import "UIStoryboard+KFMutipleStoryboards.h"
+#import "IQKeyboardManager.h"
+#import "UserInfo.h"
+#import "Single.h"
+#import "UserModel.h"
+
+
+static NSString *strTopLabelInAdvice = @"如果使用过程中有任何问题和建议，请按以下方式进行反馈，我们将不断为您改进!";
+#define  P_Width    self.view.bounds.size.width
+#define  p_hight    self.view.bounds.size.height
+
+#define Screen_Width [UIScreen mainScreen].bounds.size.width
+#define Screen_Height [UIScreen mainScreen].bounds.size.height
+
+#define  bg_color   [UIColor colorWithRed:0.1 green:0.85 blue:0.7 alpha:1]
+#define  dark_viewColor   [UIColor colorWithRed:0.28 green:0.41 blue:0.43 alpha:0.6]
+
+#define COLOR   [UIColor colorWithRed:42/255.0 green:144/255.0 blue:255/255.0 alpha:1]
+#define pageControl_color  [UIColor colorWithRed:49.0/255.0 green:191.0/255.0 blue:136.0/255.0 alpha:1.0]
+
+#define UIColoerFromRGB(rgbvalue) [UIColor colorWithRed:(CGFloat)((rgbvalue&0xFF0000)>>16)/255.0 green:(CGFloat)((rgbvalue&0xFF00)>>8)/255.0 blue:(CGFloat)(rgbvalue&0xFF)/255.0 alpha:1]
+
+
+
+
+#define GARYTEXTCOLOR UIColoerFromRGB(0x999999)  //灰色
+#define BLUETEXTCOLOR UIColoerFromRGB(0x0071fb)    //非背景蓝色
+#define TEXTCOLOR UIColoerFromRGB(0x0071fb)    //文本颜色
+#define FIELDCOLOR UIColoerFromRGB(0x333333)    //输入文本颜色
+#define LINECOLOR UIColoerFromRGB(0xe5e5e5)    //table下划线颜色
+
+
+
+//#define textColor  [UIColor colorWithRed:0.4 green:0.68 blue:1 alpha:1];
+
+
+#define USERDEFAULTS [NSUserDefaults standardUserDefaults]
+//测试服务器地址
+#define BASE_URL   @"http://112.124.40.77:19090/"
+
+//正式服务器地址
+
+//#define BASE_URL     @"http://pop.client.chuanke.com";
+
+
+//聊天本地地址
+//#define Chat_URL  @"http://112.124.40.77:19090/im/"
+
+
+//聊天正式地址
+#define Chat_URL  @"http://120.27.194.215:19090/im/"
+
+//远程图片URL
+#define IMG_URL  @"http://dentist-test.oss-cn-hangzhou.aliyuncs.com/"
+#endif /* Kungfu_Class_Prefix_pch */
