@@ -10,5 +10,7 @@ pod 'AMapSearch’, '~> 3.3.0’
 pod 'RongCloudIMKit', '~> 2.4.10'
 pod 'JPush', '~> 2.1.6'
 pod 'Bugtags', '~> 1.2.7'
+pod ‘UMengSocialCOM’, ‘~>5.2.1’
+pod ‘AvoidCrash’, ‘~>1.6.5’
 pod 'AliyunOSSiOS'
 end

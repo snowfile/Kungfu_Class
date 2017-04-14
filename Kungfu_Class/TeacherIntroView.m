@@ -54,11 +54,11 @@
         
         labelShowH = h;
         
-        viewH = 130+15+h+10+5;
+        viewH = 130+15+h+5;
         
     }else{
         labelShowH = labelH;
-        viewH = 130+labelH+10+15;
+        viewH = 130+labelH+10;
     }
     [self setNeedsLayout];
     

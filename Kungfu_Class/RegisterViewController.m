@@ -183,4 +183,7 @@
     [_codeButton resignFirstResponder];
     [_wordField resignFirstResponder];
 }
+- (IBAction)exit:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

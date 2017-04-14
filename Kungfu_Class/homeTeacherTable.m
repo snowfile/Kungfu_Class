@@ -8,12 +8,13 @@
 
 #import "homeTeacherTable.h"
 
+
 @implementation homeTeacherTable
 @dynamic imageView;
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.imageView.layer.cornerRadius = 28;
+    self.imageView.layer.cornerRadius = 26.5;
     self.imageView.clipsToBounds = YES;
     
     self.nameLabel.lineBreakMode = 0;
@@ -29,7 +30,7 @@
     _model = model;
     self.nameLabel.text = _model.name;
     self.fromLabel.text = _model.hospital;
-    self.introlLabel.text = _model.teachDutties;
+    self.introlLabel.text =[NSString stringWithFormat:@"%@  %@", _model.duties,_model.teachDutties];
     
     
     NSString *imgUrl = [NSString stringWithFormat:@"%@",_model.icon];

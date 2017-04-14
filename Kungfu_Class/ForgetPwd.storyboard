@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -146,13 +146,33 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="忘记密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOk-hG-RyK">
+                                <rect key="frame" x="153" y="33" width="97" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="FAP-pt-fgh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ve-0S-ptY">
+                                <rect key="frame" x="316" y="33" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="N22-EY-iYi"/>
+                                    <constraint firstAttribute="width" constant="25" id="mYd-Wh-9uX"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="删除"/>
+                                <connections>
+                                    <action selector="exit:" destination="Bbo-oY-Ach" eventType="touchUpInside" id="UnX-1G-zfR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="GU9-a4-14I" firstAttribute="leading" secondItem="vsj-Si-2xs" secondAttribute="leadingMargin" constant="10" id="0IL-y9-WqS"/>
                             <constraint firstItem="Pc8-xJ-Pba" firstAttribute="trailing" secondItem="vsj-Si-2xs" secondAttribute="trailingMargin" constant="10" id="117-lv-Aaf"/>
                             <constraint firstItem="yoB-Lq-hLG" firstAttribute="leading" secondItem="BXm-Qn-bE7" secondAttribute="trailing" constant="20" id="3hh-Jn-SRF"/>
-                            <constraint firstItem="tij-z9-9pM" firstAttribute="top" secondItem="L7J-2C-Opy" secondAttribute="bottom" constant="40" id="6xu-fH-tGH" userLabel="phone.top = Top Layout Guide.bottom + 40"/>
+                            <constraint firstItem="tij-z9-9pM" firstAttribute="top" secondItem="L7J-2C-Opy" secondAttribute="bottom" constant="100" id="6xu-fH-tGH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RDv-m7-95N" secondAttribute="trailing" constant="10" id="7n1-an-Ba2"/>
                             <constraint firstItem="7ei-oy-eiP" firstAttribute="top" secondItem="hon-IV-5yZ" secondAttribute="bottom" constant="20" id="DO5-qv-1jD"/>
                             <constraint firstItem="Xwk-aU-Gql" firstAttribute="leading" secondItem="Qbb-Tw-0vh" secondAttribute="trailing" constant="20" id="EMq-Cu-0va"/>
@@ -160,8 +180,10 @@
                             <constraint firstItem="yoB-Lq-hLG" firstAttribute="top" secondItem="Pc8-xJ-Pba" secondAttribute="bottom" constant="10" id="Hij-N1-fLO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Cig-me-KIw" secondAttribute="trailing" constant="15" id="HxY-0Y-ols"/>
                             <constraint firstItem="RDv-m7-95N" firstAttribute="leading" secondItem="k72-Nu-6Cz" secondAttribute="trailing" constant="20" id="I2y-Pz-Cg7"/>
+                            <constraint firstItem="LOk-hG-RyK" firstAttribute="centerX" secondItem="vsj-Si-2xs" secondAttribute="centerX" id="Mo9-qv-epd"/>
                             <constraint firstItem="Cig-me-KIw" firstAttribute="top" secondItem="Pc8-xJ-Pba" secondAttribute="bottom" constant="10" id="QAU-dv-T8E"/>
                             <constraint firstItem="hon-IV-5yZ" firstAttribute="leading" secondItem="vsj-Si-2xs" secondAttribute="leadingMargin" constant="10" id="Qmg-b3-ZLT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7ve-0S-ptY" secondAttribute="trailing" constant="15" id="S90-Pj-xM5"/>
                             <constraint firstItem="jfc-9P-kMd" firstAttribute="leading" secondItem="vsj-Si-2xs" secondAttribute="leadingMargin" constant="10" id="UTk-SK-DMF" userLabel="确定.leading = leadingMargin + 8"/>
                             <constraint firstItem="o0q-j1-ygI" firstAttribute="top" secondItem="1We-1z-T6L" secondAttribute="bottom" constant="13" id="VAy-WS-reb"/>
                             <constraint firstItem="BXm-Qn-bE7" firstAttribute="top" secondItem="hon-IV-5yZ" secondAttribute="top" id="VWn-F4-oJU"/>
@@ -179,11 +201,13 @@
                             <constraint firstItem="7ei-oy-eiP" firstAttribute="top" secondItem="yoB-Lq-hLG" secondAttribute="bottom" constant="10" id="myw-d6-p5g"/>
                             <constraint firstItem="jfc-9P-kMd" firstAttribute="top" secondItem="7ei-oy-eiP" secondAttribute="bottom" constant="10" id="o6y-zy-OGK"/>
                             <constraint firstItem="GU9-a4-14I" firstAttribute="top" secondItem="1We-1z-T6L" secondAttribute="bottom" constant="20" id="oZO-NM-haZ"/>
+                            <constraint firstItem="LOk-hG-RyK" firstAttribute="top" secondItem="L7J-2C-Opy" secondAttribute="bottom" constant="20" id="qp8-eY-W6s"/>
                             <constraint firstItem="hon-IV-5yZ" firstAttribute="top" secondItem="Pc8-xJ-Pba" secondAttribute="bottom" constant="20" id="sMT-Ez-QNy"/>
                             <constraint firstItem="Pc8-xJ-Pba" firstAttribute="leading" secondItem="vsj-Si-2xs" secondAttribute="leadingMargin" constant="10" id="ssu-IK-2Rm"/>
                             <constraint firstItem="k72-Nu-6Cz" firstAttribute="leading" secondItem="tij-z9-9pM" secondAttribute="trailing" constant="20" id="t48-Kx-Gvf" userLabel="partView1.leading = phone.trailing + 20"/>
                             <constraint firstItem="Cig-me-KIw" firstAttribute="leading" secondItem="yoB-Lq-hLG" secondAttribute="trailing" constant="5" id="vdp-kB-zNc" userLabel="眼睛.leading = Round Style Text Field.trailing + 5"/>
                             <constraint firstItem="7ei-oy-eiP" firstAttribute="leading" secondItem="vsj-Si-2xs" secondAttribute="leadingMargin" constant="10" id="vjQ-dF-g22"/>
+                            <constraint firstItem="7ve-0S-ptY" firstAttribute="top" secondItem="L7J-2C-Opy" secondAttribute="bottom" constant="20" id="wgk-P5-3zT"/>
                             <constraint firstItem="k72-Nu-6Cz" firstAttribute="top" secondItem="tij-z9-9pM" secondAttribute="top" id="xQx-p1-DTq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="jfc-9P-kMd" secondAttribute="trailing" constant="10" id="yGD-2K-AXt"/>
                             <constraint firstItem="Qbb-Tw-0vh" firstAttribute="leading" secondItem="GU9-a4-14I" secondAttribute="trailing" constant="20" id="yZc-KG-UJS"/>
@@ -208,6 +232,7 @@
     <resources>
         <image name="phone" width="16" height="16"/>
         <image name="pwd" width="16" height="15"/>
+        <image name="删除" width="16" height="16"/>
         <image name="眼睛-深" width="22" height="22"/>
         <image name="验证" width="16" height="16"/>
     </resources>

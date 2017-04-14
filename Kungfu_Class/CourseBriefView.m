@@ -46,12 +46,11 @@
         
         labelShowH = h;
         
-        viewH = 40+45+h+10+5;
-        
+        viewH = 40+45+h+5;
     }else{
         
         labelShowH = labelH;
-        viewH = 40+labelH+10+15;
+        viewH = 40+labelH+10+5;
         [showMoreBtn removeFromSuperview];
         showMoreBtn = nil;
     }
@@ -81,7 +80,7 @@
         labelShowH =calcuaH;
     }
     
-    viewH = 40+45+labelShowH+5;
+    viewH = 40+45+labelShowH;
     
     [self setNeedsLayout];
     
@@ -102,7 +101,7 @@
    _contentLab.height = labelShowH;
    _contentLab.x = 5;
    _contentLab.width = Screen_Width-10;
-   _contentLab.y = 45;
+   _contentLab.y = 48;
     
     if (showMoreBtn) {
         showMoreBtn.y = CGRectGetMaxY(_contentLab.frame)+10;

@@ -74,12 +74,19 @@
                     <color key="textColor" red="0.51764705879999995" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="时间" translatesAutoresizingMaskIntoConstraints="NO" id="XwF-xr-YYy">
+                    <rect key="frame" x="68" y="93" width="15" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="14" id="6r7-mk-abH"/>
+                        <constraint firstAttribute="height" constant="14" id="G3T-vT-jnA"/>
+                    </constraints>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWO-lf-VSt">
-                    <rect key="frame" x="287" y="20" width="70" height="26"/>
+                    <rect key="frame" x="363" y="20" width="94" height="30"/>
                     <color key="backgroundColor" red="1" green="0.51738596420000005" blue="0.27631984879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="70" id="NfJ-wK-ehJ"/>
-                        <constraint firstAttribute="height" constant="26" id="ifm-SY-bVR"/>
+                        <constraint firstAttribute="width" constant="70" id="NfJ-wK-ehJ" userLabel="width = 80"/>
+                        <constraint firstAttribute="height" constant="26" id="ifm-SY-bVR" userLabel="height = 30"/>
                     </constraints>
                     <state key="normal" title="收藏">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -88,13 +95,6 @@
                         <action selector="collectEvent:" destination="l1o-xr-4NU" eventType="touchUpInside" id="naq-VD-aH8"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="时间" translatesAutoresizingMaskIntoConstraints="NO" id="XwF-xr-YYy">
-                    <rect key="frame" x="68" y="93" width="15" height="14"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="14" id="6r7-mk-abH"/>
-                        <constraint firstAttribute="height" constant="14" id="G3T-vT-jnA"/>
-                    </constraints>
-                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>

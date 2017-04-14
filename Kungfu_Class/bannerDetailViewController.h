@@ -6,8 +6,11 @@
 //  Copyright © 2017 秦静. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "BaseNaviViewController.h"
 
-@interface bannerDetailViewController : BaseViewController
+@interface bannerDetailViewController : BaseNaviViewController
+
+@property(nonatomic,strong)UIWebView *webView;
+@property(nonatomic,strong)NSString *linkStr;
 
 @end

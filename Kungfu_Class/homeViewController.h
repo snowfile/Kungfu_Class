@@ -16,5 +16,6 @@ typedef void(^FollowBlock)(teacherRecommedModel *model);
 @interface homeViewController : BaseViewController<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 @property(nonatomic,strong)FollowBlock followBlock;
 @property(nonatomic,strong)teacherRecommedModel *model;
+@property(nonatomic,strong)courseRecommedModel *models;
 
 @end

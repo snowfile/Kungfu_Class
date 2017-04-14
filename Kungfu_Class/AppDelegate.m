@@ -36,7 +36,9 @@
     MineNaviViewController *mineNavi = [[MineNaviViewController alloc] initWithRootViewController:[BaseTabViewController shareInstance]];
     
     [[BaseTabViewController shareInstance] setViewControllers:@[homeNavi,classNavi,schemeNavi,mineNavi]];
-
+  
+  //启动防止崩溃功能
+    [AvoidCrash becomeEffective];
     
     BOOL isLauch = [USERDEFAULTS boolForKey:@"isLauch"];
     if (!isLauch) {
@@ -59,6 +61,29 @@
     manager.shouldToolbarUsesTextFieldTintColor = YES;
     manager.enableAutoToolbar = YES;
 
+    return YES;
+}
+-(BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(nonnull id)annotation{
+    
+    if ([url.host isEqualToString:@"safepay"]) {
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic){
+            NSLog(@"result = %@",resultDic);
+            NSString *resultStatus = resultDic[@"resultStatus"];
+            NSString *memo = resultDic[@"memo"];
+            if ([resultStatus isEqualToString:@"90000"]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"paySuccess" object:nil];
+            }else{
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"payError" object:memo];
+            }
+        }];
+    }
+    if ([url.host isEqualToString:@"platformapi"]){//支付宝钱包快登授权返回authCode
+        
+        [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
+            //【由于在跳转支付宝客户端支付的过程中，商户app在后台很可能被系统kill了，所以pay接口的callback就会失效，请商户对standbyCallback返回的回调结果进行处理,就是在这个方法里面处理跟callback一样的逻辑】
+            NSLog(@"result = %@",resultDic);
+        }];
+    }
     return YES;
 }
 -(UIStatusBarStyle)preferredStatusBarStyle{
@@ -91,17 +116,12 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LoginStoryboard" bundle:nil];
     LoginViewController *loginView = (LoginViewController*)[storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginView];
-    nav.navigationBar.barTintColor = bg_color;
-    UIBarButtonItem *bacBtn = [[UIBarButtonItem alloc] init];
-    bacBtn.title = @"返回";
-    nav.navigationItem.backBarButtonItem = bacBtn;
-    if ([UIApplication sharedApplication].delegate.window.rootViewController.presentedViewController == nil) {
-        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:nav animated:YES completion:^{
-            
+ 
 
+    if ([UIApplication sharedApplication].delegate.window.rootViewController.presentedViewController == nil) {
+        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:loginView animated:YES completion:^{
         }];
-    }   self.window.rootViewController =nav;
+    }   self.window.rootViewController = loginView;
         [self.window makeKeyAndVisible];
 }
 

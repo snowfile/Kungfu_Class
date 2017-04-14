@@ -9,7 +9,82 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFNetworkReachabilityManager.h>
+
+#import <UMSocial.h>
+#import <UMSocialSinaSSOHandler.h>
+#import <UMSocialQQHandler.h>
+#import <UMSocialWechatHandler.h>
+
+#import <MJRefresh/MJRefresh.h>
+#import <AlipaySDK/AlipaySDK.h>
+#import "MBProgressHUD.h"
+#import "MBProgressHUD+MJ.h"
+#import "NetService.h"
+#import "KVNProgress.h"
+#import "NSString+file.h"
+#import <AliyunOSSiOS/OSSService.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIStoryboard+KFMutipleStoryboards.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#import <AvoidCrash.h>
+#import "Single.h"
+#import "UserModel.h"
+#import "UIView+frame.h"
+
+
+#define IMG_URL @"http://dentist-test.oss-cn-hangzhou.aliyuncs.com/"
+
+#define  P_Width    self.view.bounds.size.width
+#define  p_hight    self.view.bounds.size.height
+
+#define Screen_Width [UIScreen mainScreen].bounds.size.width
+#define Screen_Height [UIScreen mainScreen].bounds.size.height
+
+#define  bg_color   [UIColor colorWithRed:0.1 green:0.85 blue:0.7 alpha:1]
+#define  dark_viewColor   [UIColor colorWithRed:0.28 green:0.41 blue:0.43 alpha:0.6]
+
+#define COLOR   [UIColor colorWithRed:42/255.0 green:144/255.0 blue:255/255.0 alpha:1]
+#define pageControl_color  [UIColor colorWithRed:49.0/255.0 green:191.0/255.0 blue:136.0/255.0 alpha:1.0]
+
+#define UIColoerFromRGB(rgbvalue) [UIColor colorWithRed:(CGFloat)((rgbvalue&0xFF0000)>>16)/255.0 green:(CGFloat)((rgbvalue&0xFF00)>>8)/255.0 blue:(CGFloat)(rgbvalue&0xFF)/255.0 alpha:1]
+
+
+
+
+#define GARYTEXTCOLOR UIColoerFromRGB(0x999999)  //灰色
+#define BLUETEXTCOLOR UIColoerFromRGB(0x0071fb)    //非背景蓝色
+#define TEXTCOLOR UIColoerFromRGB(0x0071fb)    //文本颜色
+#define FIELDCOLOR UIColoerFromRGB(0x333333)    //输入文本颜色
+#define LINECOLOR UIColoerFromRGB(0xe5e5e5)    //table下划线颜色
+
+
+static NSString *strTopLabelInAdvice = @"如果使用过程中有任何问题和建议，请按以下方式进行反馈，我们将不断为您改进!";
+//#define textColor  [UIColor colorWithRed:0.4 green:0.68 blue:1 alpha:1];
+
+
+#define USERDEFAULTS [NSUserDefaults standardUserDefaults]
+//测试服务器地址
+#define BASE_URL   @"http://112.124.40.77:19090/"
+
+//测试---支付地址
+#define Pay_URL  @"http://112.124.40.77/"
+
+//正式服务器地址
+
+//#define BASE_URL     @"http://pop.client.chuanke.com";
+
+
+//聊天本地地址
+//#define Chat_URL  @"http://112.124.40.77:19090/im/"
+
+
+//聊天正式地址
+#define Chat_URL  @"http://120.27.194.215:19090/im/"
+
+//远程图片URL
+#define IMG_URL  @"http://dentist-test.oss-cn-hangzhou.aliyuncs.com/"
 
 #endif /* PrefixHeader_pch */

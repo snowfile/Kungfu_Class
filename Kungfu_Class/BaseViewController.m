@@ -72,39 +72,12 @@
     self.navigationItem.leftBarButtonItems = @[spaceItem, backItem,];
   
 }
--(void)configSearchBarView{
-    self.navigationController.navigationBar.barTintColor = bg_color;
-    
-    UISearchBar *searchBar = [[UISearchBar alloc] init];
-    searchBar.delegate = self;
-    searchBar.placeholder = @"请输入名师或课程内容";
-    searchBar.frame = CGRectMake(0, 0,P_Width-80,44);
-    searchBar.layer.cornerRadius = 18;
-    searchBar.layer.masksToBounds = YES;
-    
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithCustomView:searchBar];
-    self.navigationItem.leftBarButtonItem = searchButton;
-    
-    UIButton *cancelBtn =[[UIButton alloc] initWithFrame:CGRectMake(263, 0, 44, 40)];
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    cancelBtn.titleLabel.font =[UIFont systemFontOfSize:14];
-    [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [cancelBtn addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *cancelBtnItem =[[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
-    self.navigationItem.rightBarButtonItem = cancelBtnItem;
-    
-}
--(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    NSLog(@"seaeach=======");
-}
+
 -(void)pressedBack{
     [self setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
--(void)cancelBtnClick{
-    [self setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

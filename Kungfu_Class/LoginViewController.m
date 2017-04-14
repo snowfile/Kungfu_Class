@@ -8,7 +8,8 @@
 
 #import "LoginViewController.h"
 #import "BaseTabViewController.h"
-#import "forgetPwdViewController.h"
+#import "ForgetPwdViewController.h"
+#import "homeViewController.h"
 #import "RegisterViewController.h"
 #import "AppDelegate.h"
 #import "UserModel.h"
@@ -19,9 +20,7 @@
 
 @implementation LoginViewController
 -(void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBar.backgroundColor = bg_color;
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:19],NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.title = @"登录";
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +28,6 @@
     self.login_Btn.clipsToBounds = YES;
     self.phone_filed.text = self.phoneString;
     self.pwd_field.secureTextEntry = YES;
-    [self.navigationItem setHidesBackButton:YES];
     //显示密码
     NSString *username = [USERDEFAULTS objectForKey:@"user"];
     NSString *password = [USERDEFAULTS objectForKey:@"pass"];
@@ -93,7 +91,12 @@
                     [single setDoctorName:doctorName];
                     
                 }
-        [self presentViewController:[BaseTabViewController shareInstance]animated:YES completion:nil];
+                BaseTabViewController *baseView = [BaseTabViewController shareInstance];
+                
+                 homeViewController *home = [[homeViewController alloc]init];
+                               home.tabBarItem = baseView.tabBarItem;
+                [self dismissViewControllerAnimated:YES completion:nil];
+        [self presentViewController:baseView animated:YES completion:nil];
         //保存用户名密码
             [USERDEFAULTS setObject:_phone_filed.text forKey:@"user"];
             [USERDEFAULTS synchronize];
@@ -112,18 +115,13 @@
     UIBarButtonItem *bacBtn = [[UIBarButtonItem alloc] init];
     bacBtn.title = @"返回";
     self.navigationItem.backBarButtonItem = bacBtn;
-    [self.navigationController
- pushViewController:regist animated:YES];
+    [self presentViewController:regist animated:YES completion:nil];
 }
 - (IBAction)forgetpwd_Event:(id)sender {
    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ForgetPwd" bundle:nil];
     ForgetPwdViewController *forgetPwd = (ForgetPwdViewController *) [storyboard instantiateViewControllerWithIdentifier:@"ForgetPwdViewController"];
-    UIBarButtonItem *bacBtn = [[UIBarButtonItem alloc] init];
-    bacBtn.title = @"";
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationItem.backBarButtonItem = bacBtn;
-    [self.navigationController pushViewController:forgetPwd animated:YES];
+    [self presentViewController:forgetPwd animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

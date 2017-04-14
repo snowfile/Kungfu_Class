@@ -7,18 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+
 typedef void(^GoShopingBlock)(NSString *money);
 
 @interface SignUpView : UIView
 
 @property(nonatomic,strong)GoShopingBlock shopingBlock;
+
 @property (weak, nonatomic) IBOutlet UILabel *priceLab;
-@property (weak, nonatomic) IBOutlet UILabel *numLab;
-
-
 @property (weak, nonatomic) IBOutlet UIButton *SignUpBtn;
 
-@property (weak, nonatomic) IBOutlet UIView *backView;
+@property (weak, nonatomic) IBOutlet UILabel *numLab;
+@property (weak, nonatomic) IBOutlet UIView *bacView;
 
 @property(nonatomic,assign)float money;
 @end

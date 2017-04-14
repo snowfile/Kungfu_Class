@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface NetService : NSObject
 
 + (NSURLSessionDataTask *)requestURL:(NSString *)urlstring
@@ -15,10 +16,10 @@
                               params:(NSDictionary *)params
                           completion:(void(^)(id result,NSError *error))block;
 
-//上传的网络请求
-//+ (NSURLSessionUploadTask *)updateURL:(NSString *)urlstring
-//                               params:(NSDictionary *)params
-//                             fileData:(NSDictionary *)files
-//                          complection:(void (^)(id, NSError *))block;
+//支付
++(NSURLSessionDataTask *)requestPayUrl:(NSString *)urlString
+                            httpMethord:(NSString *)methord
+                                params:(NSDictionary *)params
+                        completion:(void(^)(id result,NSError *error))block;
 
 @end

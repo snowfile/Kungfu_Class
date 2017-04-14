@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 
-@interface HomeNoticeViewController : BaseViewController
+@interface HomeNoticeViewController : BaseViewController<UITableViewDelegate,UITableViewDataSource>
+
 
 @end

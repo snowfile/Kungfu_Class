@@ -14,7 +14,7 @@
 #import "TeacherRecommedModel.h"
 #import "courseRecommedModel.h"
 #import "homeTeacherTable.h"
-#import "UserModel.h"
+#import "classDetailViewController.h"
 
 static NSString * const homeRecommedStrURL = @"/school/api/common/index_data";
 
@@ -33,6 +33,7 @@ static NSString * const homeRecommedStrURL = @"/school/api/common/index_data";
     UILabel *nowPay;
     UILabel *oldPay;
     UILabel *className;
+    UIView *homeClassView;
 }
 @property(nonatomic,strong)UITableView *teachTable;
 @property(nonatomic,strong)UICollectionView *ClassCollectionView;
@@ -107,7 +108,7 @@ static NSString * const homeRecommedStrURL = @"/school/api/common/index_data";
            }];
             self.courseList = courseList;
             self.teacherList = teacherList;
-        [self initBannerListView];
+            [self initBannerListView];
             [self initTeacherView];
             [self initCourseRecommed];
         }
@@ -160,16 +161,21 @@ static NSString * const homeRecommedStrURL = @"/school/api/common/index_data";
     };
 }
 -(void)initTeacherView{
-    _teachTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 165, P_Width-20, 275)];
+    _teachTable = [[UITableView alloc] initWithFrame:CGRectMake(5, 165, P_Width-10, 275)];
     _teachTable.scrollEnabled = NO;
     [_teachTable registerNib:[UINib nibWithNibName:@"homeTeacherTable" bundle:nil] forCellReuseIdentifier:@"homeTeacherTable"];
     _teachTable.backgroundColor = [UIColor whiteColor];
     _teachTable.delegate = self;
     _teachTable.dataSource =self;
+    _teachTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [bigScrollView addSubview:_teachTable];
 }
 #pragma mark 加载头部广告栏内容
 -(void)initBannerListView{
+    NSArray *views = [smallScrollView subviews];
+    for (UIView *view in views ) {
+        [view removeFromSuperview];
+    }
     smallScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, P_Width, 165)];
     smallScrollView.showsHorizontalScrollIndicator = NO;
     smallScrollView.showsVerticalScrollIndicator = NO;
@@ -191,25 +197,28 @@ static NSString * const homeRecommedStrURL = @"/school/api/common/index_data";
     //添加首页滚动图片
     for(int i=0;i<self.imgURL.count;i++){
         imageViewTop=[[UIImageView alloc]initWithFrame:CGRectMake(i*P_Width+10, 10, P_Width-20, 165)];
+        imageViewTop.userInteractionEnabled = YES;
+        imageViewTop.tag = i;
         imageViewTop.clipsToBounds = YES;
         imageViewTop.layer.cornerRadius = 9;
         [imageViewTop setImageWithURL:self.imgURL[i]];
         [smallScrollView addSubview:imageViewTop];
         
         //为smallscrollview添加手势
-        UITapGestureRecognizer *singTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bannerDetail)];
+        UITapGestureRecognizer *singTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bannerDetail:)];
         singTap.numberOfTapsRequired = 1;
         singTap.numberOfTouchesRequired = 1;
         imageViewTop.userInteractionEnabled = YES;
         [imageViewTop addGestureRecognizer:singTap];
     }
-  timer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(scrollToNextPage) userInfo:nil repeats:YES];
+  timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(scrollToNextPage) userInfo:nil repeats:YES];
 }
 -(void)searchEvent{
     SearchViewController *search =[[SearchViewController alloc] init];
-    UINavigationController *navi =[[ UINavigationController alloc] initWithRootViewController:search];
+    search.hidesBottomBarWhenPushed = YES;
     [self setModalTransitionStyle: UIModalTransitionStyleCoverVertical];
-    [self presentViewController:navi animated:YES completion:nil];
+    [self.navigationController pushViewController:search animated:YES];
+   
 }
 -(void)homeNotice{
     UIBarButtonItem *bacBtn = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -335,52 +344,76 @@ static NSString * const homeRecommedStrURL = @"/school/api/common/index_data";
     for(UIView *view in  views){
         [view removeFromSuperview];
     }
-    bottonSrollView.contentSize = CGSizeMake(_courseList.count*145, 185);
+    bottonSrollView.contentSize = CGSizeMake(_courseList.count*135, 185);
     for (int i=0; i<_courseList.count;i++) {
 
-        courseRecommedModel *models = _courseList[i];
-        classImage = [[UIImageView alloc]initWithFrame:CGRectMake(i*140+20, 10, 120, 145)];
-        NSString *strImg = [NSString stringWithFormat:@"%@",models.icon];
+       _models = _courseList[i];
+        homeClassView = [[UIView alloc] initWithFrame:CGRectMake(i*125+15, 10, 110, 180)];
+        homeClassView.tag = i;
+        NSLog(@"iii===%ld",homeClassView.tag);
+        [bottonSrollView addSubview:homeClassView];
+        
+        homeClassView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        [homeClassView addGestureRecognizer:tap];
+        
+        classImage = [[UIImageView alloc]initWithFrame:CGRectMake(i*0, 0, 110, 145)];
+        classImage.clipsToBounds = YES;
+        classImage.layer.cornerRadius = 5;
+        NSString *strImg = [NSString stringWithFormat:@"%@",_models.icon];
         NSString *strClassImg = [NSString stringWithFormat:@"%@%@",IMG_URL,strImg];
         NSURL *classUrl = [NSURL URLWithString:strClassImg];
         [classImage setImageWithURL:classUrl];
-        [bottonSrollView addSubview:classImage];
+        [homeClassView addSubview:classImage];
         //演员真实名字￥
-        onImage = [[UIView alloc] initWithFrame:CGRectMake(i*140+20, 115, 120, 40)];
+        onImage = [[UIView alloc] initWithFrame:CGRectMake(i*0, 105, 110, 40)];
         onImage.backgroundColor = dark_viewColor;
-        [bottonSrollView addSubview:onImage];
+        onImage.clipsToBounds = YES;
+        onImage.layer.cornerRadius = 5;
+        [homeClassView addSubview:onImage];
         
-        className = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 120, 30)];
-        className.text = models.name;
+        className = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 110, 30)];
+        className.text = _models.name;
         className.textColor = [UIColor whiteColor];
         className.font = [UIFont systemFontOfSize:12];
         className.numberOfLines = 0;
         className.lineBreakMode = 0;
         [onImage addSubview:className];
         
-        nowPay=[[UILabel alloc]initWithFrame:CGRectMake(i*140+20, 155, 60, 30)];
-        NSString *payNow = [NSString stringWithFormat:@"￥%@",models.presentPrice];
+        nowPay=[[UILabel alloc]initWithFrame:CGRectMake(i*0, 145, 55, 30)];
+        NSString *payNow = [NSString stringWithFormat:@"￥%@",_models.presentPrice];
         nowPay.text= payNow;
         nowPay.textColor=[UIColor blackColor];
         nowPay.font=[UIFont boldSystemFontOfSize:12];
         
-        oldPay = [[UILabel alloc] initWithFrame:CGRectMake(i*140+80, 155, 60, 30)];
-        NSString *oldpay = [NSString stringWithFormat:@"￥%@",models.orignPrice];
+        oldPay = [[UILabel alloc] initWithFrame:CGRectMake(i*0+56, 145, 55, 30)];
+        NSString *oldpay = [NSString stringWithFormat:@"￥%@",_models.orignPrice];
         oldPay.text = oldpay;
         oldPay.font = [UIFont systemFontOfSize:11];
         oldPay.textColor = [UIColor lightGrayColor];
         NSDictionary *attriteDict = @{NSStrikethroughStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleSingle]};
         NSMutableAttributedString *attribteStr = [[NSMutableAttributedString alloc] initWithString:oldpay attributes:attriteDict];
         oldPay.attributedText = attribteStr;
-        [bottonSrollView addSubview:oldPay];
+        [homeClassView addSubview:oldPay];
         
-        [bottonSrollView addSubview:nowPay];
+        [homeClassView addSubview:nowPay];
         [bigScrollView addSubview:bottonSrollView];
     }    
 }
+-(void)tap:(UITapGestureRecognizer *)gr{
+    homeClassView = (UIView *)gr.view;
+    _models = _courseList[homeClassView.tag];
+    classDetailViewController *vc = [[classDetailViewController alloc]init];
+    vc.courseId = _models.courseId;
+    vc.courseRecommendModel = _models;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 #pragma mark 广告栏详情
--(void)bannerDetail{
+-(void)bannerDetail:(UITapGestureRecognizer *)gr{
+    imageViewTop = (UIImageView *)gr.view;
     bannerDetailViewController *banDetail = [[bannerDetailViewController alloc] init];
+    banDetail.linkStr = self.linkArray[imageViewTop.tag];
     banDetail.hidesBottomBarWhenPushed = YES;
     banDetail.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self.navigationController pushViewController:banDetail animated:YES];

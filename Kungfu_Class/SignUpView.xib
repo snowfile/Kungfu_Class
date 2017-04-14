@@ -17,7 +17,7 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XE4-K9-PHV">
                     <rect key="frame" x="215" y="57" width="145" height="41"/>
-                    <color key="backgroundColor" red="1" green="0.52156862749999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="145" id="RNh-xU-O6O"/>
                     </constraints>
@@ -26,7 +26,7 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="signUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="dSi-VF-SFi"/>
+                        <action selector="SignUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="6i8-2p-F4i"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xlb-DR-dhx">
@@ -49,8 +49,8 @@
                     <rect key="frame" x="215" y="9" width="145" height="34"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lif-8s-BfE">
-                    <rect key="frame" x="10" y="52" width="0.0" height="51"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lif-8s-BfE">
+                    <rect key="frame" x="10" y="52" width="19" height="51"/>
                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                     <color key="textColor" red="0.96862745100000003" green="0.33725490200000002" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -74,7 +74,7 @@
                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="down:" destination="iN0-l3-epB" eventType="touchUpInside" id="G8k-M5-vmt"/>
+                                <action selector="down:" destination="iN0-l3-epB" eventType="touchUpInside" id="Gl9-Wb-ORw"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9kP-gC-i9G">
@@ -83,7 +83,7 @@
                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="up:" destination="iN0-l3-epB" eventType="touchUpInside" id="s3S-kA-fdA"/>
+                                <action selector="up:" destination="iN0-l3-epB" eventType="touchUpInside" id="MER-bc-Lx4"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXp-r8-nfA">
@@ -164,10 +164,10 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="backView" destination="8FG-62-w8e" id="cCV-u5-BBu"/>
-                <outlet property="numlbl" destination="SXp-r8-nfA" id="rFG-Ab-LN8"/>
-                <outlet property="presentPricelbl" destination="Lif-8s-BfE" id="jUY-LU-0bi"/>
-                <outlet property="signUpBtn" destination="XE4-K9-PHV" id="fpO-Z5-yVR"/>
+                <outlet property="SignUpBtn" destination="XE4-K9-PHV" id="NF4-uy-464"/>
+                <outlet property="bacView" destination="8FG-62-w8e" id="aCh-BD-Gb4"/>
+                <outlet property="numLab" destination="SXp-r8-nfA" id="gSB-FL-01j"/>
+                <outlet property="priceLab" destination="Lif-8s-BfE" id="nMP-Fb-wun"/>
             </connections>
             <point key="canvasLocation" x="-165.5" y="-17.5"/>
         </view>

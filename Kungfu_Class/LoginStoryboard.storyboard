@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -69,8 +69,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_image" translatesAutoresizingMaskIntoConstraints="NO" id="xhS-H4-OSA">
-                                <rect key="frame" x="110" y="72" width="100" height="100"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_image" translatesAutoresizingMaskIntoConstraints="NO" id="xhS-H4-OSA">
+                                <rect key="frame" x="110" y="126" width="100" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="8Bh-qC-1fr"/>
@@ -91,11 +91,22 @@
                                     <action selector="loginBtnClick:" destination="IFp-BJ-aaK" eventType="touchUpInside" id="k7f-tX-13z"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmP-Nu-W7K">
+                                <rect key="frame" x="141.5" y="55" width="37" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="IEF-9S-0A6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="zTO-th-t3n" secondAttribute="trailing" constant="20" id="0Qe-uO-1kO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Zdb-PD-mbH" secondAttribute="trailing" constant="27" id="1yo-H1-CQ8"/>
+                            <constraint firstItem="xhS-H4-OSA" firstAttribute="top" secondItem="kmP-Nu-W7K" secondAttribute="bottom" constant="50" id="4kp-Q0-2cZ"/>
+                            <constraint firstItem="kmP-Nu-W7K" firstAttribute="top" secondItem="RvF-eA-zRr" secondAttribute="bottom" constant="35" id="7GH-QR-TGe"/>
                             <constraint firstItem="IQx-qu-IKj" firstAttribute="leading" secondItem="LMg-DJ-8FE" secondAttribute="leadingMargin" constant="20" id="8Ml-Qd-FyH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7hX-36-bzI" secondAttribute="trailing" constant="20" id="9WE-Sg-QPb"/>
                             <constraint firstItem="g3m-ro-bwp" firstAttribute="baseline" secondItem="zTO-th-t3n" secondAttribute="baseline" constant="45" id="ATk-vv-I9A"/>
@@ -103,6 +114,7 @@
                             <constraint firstItem="7hX-36-bzI" firstAttribute="baseline" secondItem="xhS-H4-OSA" secondAttribute="baseline" constant="120" id="ILg-41-wz7" userLabel="Pwd field.baseline = login_image.baseline + 120"/>
                             <constraint firstItem="7hX-36-bzI" firstAttribute="leading" secondItem="LMg-DJ-8FE" secondAttribute="leadingMargin" constant="20" id="KjE-Yz-bvl"/>
                             <constraint firstItem="xhS-H4-OSA" firstAttribute="centerX" secondItem="LMg-DJ-8FE" secondAttribute="centerX" id="Mzi-mz-W7d"/>
+                            <constraint firstItem="xhS-H4-OSA" firstAttribute="centerX" secondItem="kmP-Nu-W7K" secondAttribute="centerX" id="SK8-hV-1y2"/>
                             <constraint firstItem="IQx-qu-IKj" firstAttribute="baseline" secondItem="zTO-th-t3n" secondAttribute="baseline" constant="45" id="W4G-Ba-5XT"/>
                             <constraint firstItem="7hX-36-bzI" firstAttribute="baseline" secondItem="Zdb-PD-mbH" secondAttribute="baseline" constant="50" id="Xd5-Tg-rz5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="g3m-ro-bwp" secondAttribute="trailing" constant="20" id="Xmx-34-zb8"/>
@@ -115,7 +127,6 @@
                             <constraint firstItem="zTO-th-t3n" firstAttribute="leading" secondItem="LMg-DJ-8FE" secondAttribute="leadingMargin" constant="20" id="srM-7Q-cci"/>
                             <constraint firstItem="Zdb-PD-mbH" firstAttribute="leading" secondItem="LMg-DJ-8FE" secondAttribute="leadingMargin" constant="25" id="ta5-X3-AsR"/>
                             <constraint firstItem="Zdb-PD-mbH" firstAttribute="top" secondItem="xhS-H4-OSA" secondAttribute="bottom" constant="69" id="xZD-6g-O0K"/>
-                            <constraint firstItem="xhS-H4-OSA" firstAttribute="top" secondItem="RvF-eA-zRr" secondAttribute="bottom" constant="30" id="ymo-tk-LcV"/>
                             <constraint firstItem="Zdb-PD-mbH" firstAttribute="leading" secondItem="LMg-DJ-8FE" secondAttribute="leadingMargin" constant="20" id="zHr-MZ-0aq"/>
                         </constraints>
                         <variation key="default">

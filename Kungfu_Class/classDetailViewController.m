@@ -13,6 +13,7 @@
 #import "TeacherIntroView.h"
 #import "CourseArrangementView.h"
 #import "teacherDetailViewController.h"
+#import "SignUpViewController.h"
 #import "PayAttentionView.h"
 #import "SignUpView.h"
 #import "UserModel.h"
@@ -65,7 +66,7 @@
     UserModel *usermodel = [UserModel sharedInstance];
     NSDictionary *dict = @{@"coursesId":[NSString stringIsNull:_courseId],@"userId":usermodel.userId};
     [NetService requestURL:@"school/api/courses/info" httpMethod:@"GET" params:dict completion:^(id result,NSError *error){
-        //NSLog(@"resuiiiiii==%@",result);
+        NSLog(@"resuiiiiii==%@",result);
         NSString *resultCode = result[@"resultCode"];
         [_scrollview.mj_header endRefreshing];
         if ([resultCode isEqualToString:@"0"]) {
@@ -90,8 +91,9 @@
             _teacherIntroView.positionLab.text = position;
             
             NSString *url = [NSString stringWithFormat:@"%@%@",IMG_URL,[NSString stringIsNull:coursesInfo[@"teacherIcon"]]];
-            courseImgUrl = url;
-            [_teacherIntroView.teacherImg setImageWithURL:[NSURL URLWithString:courseImgUrl] placeholderImage:[UIImage imageNamed:@"people"]];
+            courseImgUrl = [NSString stringWithFormat:@"%@%@",IMG_URL,[NSString stringIsNull:coursesInfo[@"listIcon"]]];
+            
+            [_teacherIntroView.teacherImg setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"people"]];
             teacherId = coursesInfo[@"teacherId"];
             teacherUserId = coursesInfo[@"teacherUserId"];
             
@@ -139,7 +141,7 @@
             [MBProgressHUD showError:@"加载失败" toView:self.view];
         }
     }];
-_attentionView.contentStr = @"1.开课前一天的下午或培训当天8:30前报到（以短信通知为准。\n2.安排中午便餐，其它食宿自理；如需预定酒店，需要预付第一天的房费，由于个人原因不能入住，所有损失个人承担。\n3.按付款先后顺序安排座位。\n4.学习中允许拍照，禁止摄像、录音。\n5. 禁止正式学员携带其他人进入会场。\n6. 因个人原因无法参加本次培训班，不可退费";
+_attentionView.contentStr = @"1.开课前一天的下午或培训当天8:30前报到（以短信通知为准。\n2.安排中午便餐，其它食宿自理；如需预定酒店，需要预付第一天的房费，由于个人原因不能入住，所有损失个人承担。\n3.按付款先后顺序安排座位。\n4.学习中允许拍照，禁止摄像、录音。\n5. 禁止正式学员携带其他人进入会场。\n6. 因个人原因无法参加本次培训班，不可退费。";
 
 }
 -(void)initUI{
@@ -161,7 +163,7 @@ _attentionView.contentStr = @"1.开课前一天的下午或培训当天8:30前�
 
     //课程基本信息
     CourseBaseView *cview = [[[NSBundle mainBundle]loadNibNamed:@"CourseBaseView" owner:nil options:nil] firstObject];
-    cview.frame = CGRectMake(0, CGRectGetMaxY(imageview.frame)+5, P_Width, 120);
+    cview.frame = CGRectMake(0, CGRectGetMaxY(imageview.frame), P_Width, 120);
     _courseBaseView = cview;
     __weak typeof(self) weakself = self;
     _courseBaseView.storeBlock = ^(NSString *string){
@@ -180,25 +182,22 @@ _attentionView.contentStr = @"1.开课前一天的下午或培训当天8:30前�
         [weakself changeFrame];
     
     };
-    
     //讲师简介
     TeacherIntroView *tView = [[[NSBundle mainBundle]loadNibNamed:@"TeacherIntroView" owner:nil options:nil]firstObject];
-    tView.frame = CGRectMake(0, CGRectGetMaxY(cbView.frame)+5,P_Width, 220);
+    tView.frame = CGRectMake(0, CGRectGetMaxY(cbView.frame),P_Width, 220);
     _teacherIntroView = tView;
     [_scrollview addSubview:_teacherIntroView];
     _teacherIntroView.changeFrame = ^(CGFloat h){
-    
         _teacherIntroView.height = h;
         [weakself changeFrame];
     
     };
     _teacherIntroView.lookLectureBlock = ^(NSString *string){
-    
         [weakself lookLectureAbout];
     };
     //课程安排
     CourseArrangementView *caView = [[[NSBundle mainBundle]loadNibNamed:@"CourseArrangementView" owner:nil options:nil] firstObject];
-    caView.frame = CGRectMake(0, CGRectGetMaxY(tView.frame)+5, P_Width, 300);
+    caView.frame = CGRectMake(0, CGRectGetMaxY(tView.frame), P_Width, 300);
     _courseArrangeView = caView;
     _courseArrangeView.changeFrame = ^(CGFloat h){
         _courseArrangeView.height = h;
@@ -219,7 +218,7 @@ _attentionView.contentStr = @"1.开课前一天的下午或培训当天8:30前�
     };
     //立即报名
     SignUpView *signView= [[[NSBundle mainBundle] loadNibNamed:@"SignUpView" owner:nil options:nil] firstObject];
-    signView.frame = CGRectMake(0, p_hight-100, P_Width, 100);
+    signView.frame = CGRectMake(0, p_hight-164, P_Width, 100);
     signView.height = 100;
     _signupView = signView;
     [self.view addSubview:_signupView];
@@ -229,14 +228,34 @@ _attentionView.contentStr = @"1.开课前一天的下午或培训当天8:30前�
 }
 -(void)store{
     UserModel *usermodel = [UserModel sharedInstance];
-    NSDictionary *dict = @{@"courseId":[NSString stringIsNull:_courseId],@"userId":[NSString stringIsNull:usermodel.userId]};
+    NSDictionary *dict = @{@"coursesId":_courseId,@"userId":[NSString stringIsNull:usermodel.userId]};
+    NSLog(@"3333===%@",dict);
     NSString *currentStr = _courseBaseView.collectBtn.currentTitle;
-    if([currentStr isEqualToString:@"收藏"]){
-        currentStr = @"取消收藏";
-}
-    ([MBProgressHUD showHUDAddedTo:self.view animated:YES]).labelText = [NSString stringWithFormat:@"%@中",currentStr];
     [NetService requestURL:@"school/api/user/collectCourses" httpMethod:@"POST" params:dict completion:^(id result,NSError *error){
-        NSLog(@"66==%@",result);
+        NSLog(@"结构===%@",result);
+        NSString *resultCode = result[@"resultCode"];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if ([resultCode isEqualToString:@"0"]) {
+            if ([currentStr isEqualToString:@"收藏"]) {
+                [_courseBaseView.collectBtn setTitle:@"已收藏" forState:UIControlStateNormal];
+                _courseBaseView.collectBtn.backgroundColor = [UIColor whiteColor];
+                [_courseBaseView.collectBtn setTitleColor:UIColoerFromRGB(0xfe8729) forState:UIControlStateNormal];
+               _courseBaseView.collectBtn.layer.borderColor = UIColoerFromRGB(0xfe8729).CGColor;
+                [MBProgressHUD showSuccess:@"收藏成功" toView:self.view];
+            }else{
+                [_courseBaseView.collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
+                [_courseBaseView.collectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                _courseBaseView.collectBtn.layer.cornerRadius = 4;
+                _courseBaseView.collectBtn.clipsToBounds = YES;
+                _courseBaseView.collectBtn.backgroundColor =UIColoerFromRGB(0xfe8729);
+                [MBProgressHUD showSuccess:@"取消收藏成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"CancelStore" object:nil];
+            }
+          
+        }else{
+        
+            [MBProgressHUD showSuccess:[NSString stringWithFormat:@"%@失败",currentStr] toView:self.view];
+        }
 
     }];
 }
@@ -249,19 +268,25 @@ _attentionView.contentStr = @"1.开课前一天的下午或培训当天8:30前�
 }
 #pragma mark ---立即报名
 -(void)shopping{
-
-
+    SignUpViewController *signUp = [[SignUpViewController alloc] init];
+    signUp.courseId = _courseId;
+    signUp.money = _signupView.priceLab.text;
+    signUp.num = _signupView.numLab.text;
+    signUp.price = price;
+    signUp.courseTime = _courseArrangeView.timeLab.text;
+    signUp.teacherName = [NSString stringWithFormat:@"主讲老师: %@",_courseBaseView.nameLab.text];
+    signUp.courseImageUrl = courseImgUrl;
+    signUp.courseTitle =courseName;
+    
+    [self.navigationController pushViewController:signUp animated:YES];
 }
-
-
-
 #pragma mark ----scrollview的滚动范围
 -(void)changeFrame{
     [UIView animateWithDuration:0.1 animations:^{
         _teacherIntroView.y = _briefView.y+_briefView.height+5;
         _courseArrangeView.y = _teacherIntroView.y + _teacherIntroView.height+5;
         _attentionView.y  = _courseArrangeView.y + _courseArrangeView.height+5;
-        _scrollview.contentSize = CGSizeMake(Screen_Width, _attentionView.y+_attentionView.height+100);
+        _scrollview.contentSize = CGSizeMake(Screen_Width, _attentionView.y+_attentionView.height+125);
     }];
 }
  //显示itoast

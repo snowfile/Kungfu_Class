@@ -122,6 +122,9 @@ static NSString* const forgetPwd_URL = @"/school/api/account/forgetPassword";
     [code_textField resignFirstResponder];
     [pwd_textField resignFirstResponder];
 }
+- (IBAction)exit:(id)sender {
+       [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -9,15 +9,19 @@
 #import "bannerDetailViewController.h"
 
 @interface bannerDetailViewController ()
-@property(nonatomic,strong)UIWebView *webView;
+
 @end
 
 @implementation bannerDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"www===%@",self.linkStr);
     // Do any additional setup after loading the view.
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, P_Width,p_hight)];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_linkStr]];
+    [self.webView loadRequest:request];
+    [self.view addSubview:self.webView];
     
 }
 
