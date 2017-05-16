@@ -29,7 +29,8 @@
 }
 -(void)customMakeNavigationBar{
     
-    self.navigationBar.hidden = YES;
+    self.navigationBar.barTintColor = bg_color;
+    self.navigationBar.translucent = NO;
 }
 
 - (void)didReceiveMemoryWarning {

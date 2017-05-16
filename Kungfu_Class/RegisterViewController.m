@@ -162,9 +162,7 @@
             }
         }];
     }
-
 }
-
 - (IBAction)showAgreement:(id)sender {
     AgreementViewController *agreeMent = [[AgreementViewController alloc] init];
     UIBarButtonItem *bacButton = [[UIBarButtonItem alloc] init];

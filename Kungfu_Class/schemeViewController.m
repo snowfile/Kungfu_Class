@@ -10,10 +10,14 @@
 #import "patientViewController.h"
 #import "appointViewController.h"
 #import "visitViewController.h"
+#import "NewAddViewController.h"
 #import "SwitchClinicVC.h"
 #import "CreatClinicVC.h"
 
 @interface schemeViewController (){
+    NSArray *newPatientList;
+    NSArray *todayReserveList;
+    NSArray *todayVisitList;
     UITableView *schemeTableView;;
     UIButton *appointBtn;
     UIButton *patientBtn;
@@ -33,12 +37,32 @@
     }
     return self;
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear: YES];
+    [self getData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     imgArray = @[@"新增预约",@"新增回访",@"新增患者",@"新增预约"];
     menuArray =@[@{@"imageName":@"选择诊所",@"title":@"选择诊所"},@{@"imageName":@"创建诊所",@"title":@"创建诊所"}];
-    self.view.backgroundColor = [UIColor lightTextColor];
-    [self initSchemeView];
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    
+}
+-(void)getData{
+    Single *single = [Single shareSingle];
+    NSDictionary *param = @{@"doctorId":single.doctorId,@"hospitalId":single.hosipitalId};
+    [NetService requestURL:@"/dentist/api/common/index.do" httpMethod:@"GET" params:param completion:^(id result, NSError *error){
+        NSString *status = [result objectForKey:@"resultCode"];
+        NSDictionary *data = result[@"data"];
+        if ([status isEqualToString:@"0"]) {
+            newPatientList = data[@"newPatientList"];
+            todayReserveList = data[@"todayReserveList"];
+            todayVisitList = data[@"todayVisitList"];
+            [self initSchemeView];
+            [schemeTableView reloadData];
+        }
+    }];
 }
 -(void)initSchemeView{
     
@@ -70,8 +94,8 @@
     [self.view addSubview:partView];
     
     UILabel *label = [[UILabel alloc] init];
-    label.frame = CGRectMake(8,4, 120, 30);
-    label.font = [UIFont systemFontOfSize:12];
+    label.frame = CGRectMake(10,4, 120, 30);
+    label.font = [UIFont systemFontOfSize:14];
     label.text = @"优惠券管理";
     [partView addSubview:label];
     
@@ -82,7 +106,7 @@
     
     
     
-    schemeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 202, P_Width, p_hight-202)];
+    schemeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 205, P_Width, p_hight-202)];
     schemeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     schemeTableView.delegate = self;
     schemeTableView.dataSource = self;
@@ -102,23 +126,30 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
         return @"最新消息";
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 70;
+}
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, P_Width, 40)];
-        UIImageView *imageMessage = [[UIImageView alloc] initWithFrame:CGRectMake(8, 5, 25, 25)];
-        imageMessage.image = [UIImage imageNamed:@"message"];
+        UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, P_Width, 70)];
+        UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 69, P_Width, 1)];
+        lineLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        [headView addSubview:lineLabel];
+        
+        UIImageView *imageMessage = [[UIImageView alloc] initWithFrame:CGRectMake((P_Width-105)/2, 27.5, 15, 15)];
+        imageMessage.image = [UIImage imageNamed:@"信息"];
         [headView addSubview:imageMessage];
       
-        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 5, 60, 25)];
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake((P_Width-105)/2+20, 20, 85, 30)];
         messageLabel.text = @"最新消息";
-        messageLabel.font = [UIFont systemFontOfSize:12];
+        messageLabel.font = [UIFont systemFontOfSize:14];
         [headView addSubview:messageLabel];
         return headView;
 }
     return nil;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-            return 4;
+            return 3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SchemeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SchemeTableViewCell" forIndexPath:indexPath];
@@ -129,30 +160,88 @@
     cell.titleImage.image = [UIImage imageNamed:imgArray[indexPath.row]];
     cell.titleLabel.textColor = [UIColor blackColor];
     cell.titleLabel.font = [UIFont systemFontOfSize:12];
-    cell.detailLabel.text = @"16-12-28,14点，武汉冠美口腔，洗牙";
     NSInteger row = indexPath.row;
+    NSInteger len =0;
     if (row == 0) {
         cell.titleLabel.text = @"预约消息";
-
+        NSLog(@"todayyyy==%ld",todayReserveList.count);
+        if (todayReserveList.count == 0) {
+            cell.detailLabel.text = @"本周没有新预约";
+        }else if (todayReserveList.count >0 && todayReserveList.count<10){
+            len = 1;
+            NSString *newPatientStr= [NSString stringWithFormat:@"有%ld个预约提醒",(unsigned long)todayReserveList.count];
+            NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:newPatientStr];
+            NSDictionary *attributeDic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName,UIColoerFromRGB(0xff852f),NSForegroundColorAttributeName, nil];
+            [attStr addAttributes:attributeDic range:NSMakeRange(1, len)];
+            cell.detailLabel.attributedText = attStr;
+        }else{
+            len = 2;
+            NSString *newPatientStr= [NSString stringWithFormat:@"有%ld个预约提醒",(unsigned long)todayReserveList.count];
+            NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:newPatientStr];
+            NSDictionary *attributeDic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName,UIColoerFromRGB(0xff852f),NSForegroundColorAttributeName, nil];
+            [attStr addAttributes:attributeDic range:NSMakeRange(1, len)];
+            cell.detailLabel.attributedText = attStr;
+        }
     }else if (row == 1){
         cell.titleLabel.text = @"回访消息";
-
-      
+        if (todayVisitList.count == 0) {
+        cell.detailLabel.text = @"本周没有回访安排";
+        }else if (todayVisitList.count > 0 && todayVisitList.count< 10){
+            len = 1;
+            NSString *newVisitStr = [NSString stringWithFormat:@"有%ld个回访安排",(unsigned long)todayVisitList.count];
+            NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:newVisitStr];
+            NSDictionary *attributeDic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName,UIColoerFromRGB(0xff852f),NSForegroundColorAttributeName ,nil];
+            [attrStr addAttributes:attributeDic range:NSMakeRange(1, len)];
+            cell.detailLabel.attributedText = attrStr;
+        }else{
+            len = 2;
+            NSString *newVisitStr = [NSString stringWithFormat:@"有%ld个回访安排",(unsigned long)todayVisitList.count];
+            NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:newVisitStr];
+            NSDictionary *attributeDic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName,UIColoerFromRGB(0xff825),NSForegroundColorAttributeName, nil];
+            [attrStr addAttributes:attributeDic range:NSMakeRange(1, len)];
+            cell.detailLabel.attributedText = attrStr;
+        }
     }else if (row == 2){
         cell.titleLabel.text = @"新增患者";
-
-
-    }else if (row == 3){
-        cell.titleLabel.text = @"预约消息";
-
+        if (newPatientList.count == 0) {
+            cell.detailLabel.text = @"本周没有新增患者";
+        }else if (newPatientList.count >0 && newPatientList.count < 10){
+            len = 1;
+            NSString *newPatientStr = [NSString stringWithFormat:@"本周有%ld名新增患者",(unsigned long)newPatientList.count];
+            NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:newPatientStr];
+            NSDictionary *attributeDic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName,UIColoerFromRGB(0xff6600),NSForegroundColorAttributeName, nil];
+            [attrStr addAttributes:attributeDic range:NSMakeRange(3, len)];
+            cell.detailLabel.attributedText = attrStr;
+        }else{
+            len = 2;
+            NSString *newPatientStr = [NSString stringWithFormat:@"本周有%ld名新增患者",(unsigned long)newPatientList.count];
+            NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:newPatientStr];
+            NSDictionary *attributeDic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName,UIColoerFromRGB(0xff6600),NSForegroundColorAttributeName, nil];
+            [attrStr addAttributes:attributeDic range:NSMakeRange(3, len)];
+            cell.detailLabel.attributedText = attrStr;
+        }
     }
-  
     return cell;
     
 }
 //设置行高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-            return  50;
+            return  65;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NewAddViewController *newAddVC = [[NewAddViewController alloc]init];
+    if (indexPath.row== 0) {
+        newAddVC.array = todayReserveList;
+        newAddVC.tag = 100;
+    }else if (indexPath.row == 1){
+        newAddVC.array = todayVisitList;
+        newAddVC.tag = 200;
+    }else if (indexPath.row == 2){
+        newAddVC.array = newPatientList;
+        newAddVC.tag = 300;
+    }
+    newAddVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:newAddVC animated:YES];
 }
 -(void)moreOperationEvent{
     if (!dropmenuView) {
@@ -187,7 +276,6 @@
 }
 //患者管理
 -(void)patientManager{
-
 
     patientViewController *patient = [[patientViewController alloc] init];
     patient.hidesBottomBarWhenPushed = YES;

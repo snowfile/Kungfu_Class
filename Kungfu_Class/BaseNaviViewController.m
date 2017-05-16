@@ -25,7 +25,6 @@
     
     [but setImage:[UIImage imageNamed:lowImage] forState:UIControlStateNormal];
     [but setImage:[UIImage imageNamed:heightImage] forState:UIControlStateHighlighted];
-    
     [but addTarget:self action:@selector(leftNavButtonClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:but];
     self.navigationItem.leftBarButtonItem = leftItem;

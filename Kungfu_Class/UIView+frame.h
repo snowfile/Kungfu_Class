@@ -14,6 +14,7 @@
 @property (assign, nonatomic) CGFloat width;
 @property (assign, nonatomic) CGFloat height;
 @property (assign, nonatomic) CGSize size;
+@property (nonatomic) CGFloat bottom;
 @property (assign, nonatomic) CGPoint origin;
 - (UIViewController*)viewController;
 // window 上的第一个视图

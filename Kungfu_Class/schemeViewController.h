@@ -7,7 +7,6 @@
 //
 
 #import "BaseViewController.h"
-#import "SchemeCollectionViewCell.h"
 #import "SchemeTableViewCell.h"
 #import "JSDropmenuView.h"
 

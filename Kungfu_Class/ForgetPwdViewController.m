@@ -6,7 +6,7 @@
 //  Copyright © 2016 秦静. All rights reserved.
 //
 
-#import "forgetPwdViewController.h"
+#import "ForgetPwdViewController.h"
 #import "LoginViewController.h"
 
 static NSString* const forgetPwd_URL = @"/school/api/account/forgetPassword";

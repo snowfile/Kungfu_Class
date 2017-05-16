@@ -11,7 +11,7 @@
 #import "HomeNoticeViewController.h"
 #import "teacherDetailViewController.h"
 #import "bannerDetailViewController.h"
-#import "TeacherRecommedModel.h"
+#import "teacherRecommedModel.h"
 #import "courseRecommedModel.h"
 #import "homeTeacherTable.h"
 #import "classDetailViewController.h"

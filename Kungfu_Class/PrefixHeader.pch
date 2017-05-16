@@ -14,9 +14,10 @@
 #import <AFNetworking/AFNetworkReachabilityManager.h>
 
 #import <UMSocial.h>
+#import <Masonry.h>
 #import <UMSocialSinaSSOHandler.h>
 #import <UMSocialQQHandler.h>
-#import <UMSocialWechatHandler.h>
+#import "View+MASAdditions.h"
 
 #import <MJRefresh/MJRefresh.h>
 #import <AlipaySDK/AlipaySDK.h>
@@ -33,6 +34,10 @@
 #import "Single.h"
 #import "UserModel.h"
 #import "UIView+frame.h"
+#import "NSString+Regex.h"
+#import "UIScrollView+EmptyDataSet.h"
+#import "MyLable.h"
+#import "MyTextView.h"
 
 
 #define IMG_URL @"http://dentist-test.oss-cn-hangzhou.aliyuncs.com/"
@@ -48,7 +53,10 @@
 
 #define COLOR   [UIColor colorWithRed:42/255.0 green:144/255.0 blue:255/255.0 alpha:1]
 #define pageControl_color  [UIColor colorWithRed:49.0/255.0 green:191.0/255.0 blue:136.0/255.0 alpha:1.0]
+//预约页面segmentcontrol颜色
+#define FIELDCOLOR UIColoerFromRGB(0x333333) 
 
+#define TEXTCOLOR UIColoerFromRGB(0x0071fb)
 #define UIColoerFromRGB(rgbvalue) [UIColor colorWithRed:(CGFloat)((rgbvalue&0xFF0000)>>16)/255.0 green:(CGFloat)((rgbvalue&0xFF00)>>8)/255.0 blue:(CGFloat)(rgbvalue&0xFF)/255.0 alpha:1]
 
 

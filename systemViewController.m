@@ -92,7 +92,6 @@ NSArray *dateArraySectionTwo;
     {
         return dateArraySectionOne.count;
     }else
-        
         return dateArraySectionTwo.count;
 }
 

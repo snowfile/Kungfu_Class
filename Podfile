@@ -13,4 +13,5 @@ pod 'Bugtags', '~> 1.2.7'
 pod ‘UMengSocialCOM’, ‘~>5.2.1’
 pod ‘AvoidCrash’, ‘~>1.6.5’
 pod 'AliyunOSSiOS'
+pod 'DZNEmptyDataSet'
 end

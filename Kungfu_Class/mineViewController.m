@@ -5,8 +5,8 @@
 //  Created by 静静 on 12/12/16.
 //  Copyright © 2016 秦静. All rights reserved.
 //
-
 #import "mineViewController.h"
+#import "PersonalViewController.h"
 #import "orderViewController.h"
 #import "CouponsViewController.h"
 #import "favoriteViewController.h"
@@ -14,11 +14,14 @@
 #import "inviteViewController.h"
 #import "AdviceViewController.h"
 #import "systemViewController.h"
+#import "MineHeadView.h"
 #import "mineCentralViewController.h"
 #import "UIStoryboard+KFMutipleStoryboards.h"
 
-@interface mineViewController (){
+
+@interface mineViewController ()<UIGestureRecognizerDelegate>{
     UIView *profileView;
+    MineHeadView *mineHeadView;
     UIButton *profileImgBtn;
     UILabel *nameLabel;
     UILabel *positionLabel;
@@ -28,7 +31,7 @@
     UITableView *meTableView;
     NSArray *meTabImgs_arr;
     NSArray *meTabName_arr;
-    NSArray *threeBtnTittle_arr;    
+    NSArray *threeBtnTittle_arr;
 }
 @end
 
@@ -40,14 +43,108 @@
     }
     return self;
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self loadData];
+    
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     meTabName_arr = @[@"我的订单",@"我的优惠券",@"我的收藏",@"消息中心",@"邀请好友",@"意见反馈",@"系统设置"];
     meTabImgs_arr = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7"];
     threeBtnTittle_arr = @[@"我的关注",@"我的课程",@"我的积分"];
     [self initMeView];
+    
+    
+    mineHeadView = [[MineHeadView alloc] initWithFrame:CGRectMake(0, 0, P_Width, 220)];
+    mineHeadView.backgroundColor = [UIColor clearColor];
+    
+    meTableView.tableHeaderView = mineHeadView;
+    
+    __weak typeof(self) weakself = self;
+    mineHeadView.mineHeadBlock = ^(NSString *title){
+        [weakself headViewdoWith:title];
+        
+    };
 }
+//-(void)viewDidDisappear:(BOOL)animated{
+//    [super viewDidDisappear:YES];
+//    [self.navigationController setNavigationBarHidden:NO animated:YES];
+//}
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+#pragma mark --隐藏
+-(void)setExtraCelllineHidden:(UITableView *)tableView{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 0)];
+    
+    
+    
+    
+}
+
+
+
+
+-(void)loadData{
+    UserModel *userModel = [UserModel sharedInstance];
+    NSDictionary *dict = @{@"userId":userModel.userId};
+    [NetService requestURL:@"/school/api/user/info" httpMethod:@"GET" params:dict completion:^(id result,NSError *error){
+        NSLog(@"resuuuu==%@",result);
+        if ([result[@"resultCode"] isEqualToString:@"0"]) {
+            NSDictionary *data = result[@"data"];
+            NSDictionary *stat = data[@"stat"];
+            NSDictionary *userInfo = data[@"userInfo"];
+            
+            mineHeadView.followLab.text = [NSString stringWithFormat:@"%@",stat[@"focusCnt"]];
+            
+            mineHeadView.classLab.text = [NSString stringWithFormat:@"%@",stat[@"orderCnt"]];
+            
+            mineHeadView.nameLabel.text = userInfo[@"realName"];
+            NSString *icon = userInfo[@"icon"];
+            
+            UserModel *userModel = [UserModel  sharedInstance];
+            [userModel setUserName:[NSString stringIsNull:userInfo[@"realName"] ]];
+            [userModel setGender:[NSString stringIsNull:[NSString stringWithFormat:@"%@",userInfo[@"gender"]]]];
+            [userModel setBirthday:[NSString stringIsNull:userInfo[@"birthday"]]];
+            
+            [userModel setImgURL:[NSString stringIsNull:userInfo[@"icon"]]];
+            if ([icon isEqualToString:@""]||[icon isKindOfClass:[NSNull class]]) {
+                mineHeadView.peopleImageView.image = [UIImage imageNamed:@"people"];
+                
+            }else{
+                NSString *urlString = [NSString stringWithFormat:@"%@%@",IMG_URL,icon];
+                NSURL *url = [NSURL URLWithString:urlString];
+                [mineHeadView.peopleImageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"people"]];
+            }
+        }
+    }];
+}
+-(void)headViewdoWith:(NSString *)conStr{
+    if ([conStr isEqualToString:@"个人信息"]) {
+        [self.navigationController setNavigationBarHidden:NO animated:NO];
+        PersonalViewController *personal = [[PersonalViewController alloc] init];
+        personal.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:personal animated:YES];
+    }
+    
+}
+
 -(void)initMeView{
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, P_Width, p_hight)];
@@ -61,11 +158,11 @@
     meTableView.delegate = self;
     meTableView.dataSource = self;
     meTableView.backgroundColor = [UIColor clearColor];
-     profileView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, P_Width, 200)];
-    meTableView.tableHeaderView = profileView;
-    meTableView.tableHeaderView.userInteractionEnabled = YES;
+    // profileView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, P_Width, 200)];
+    //    meTableView.tableHeaderView = profileView;
+    //    meTableView.tableHeaderView.userInteractionEnabled = YES;
     [self.view addSubview:meTableView];
-    [self initThreeBtn];
+    // [self initThreeBtn];
 }
 -(void)initThreeBtn{
     for (int i=1; i<3; i++) {
@@ -74,71 +171,6 @@
         [profileView addSubview:partView];
     }
     
-  for (int i=0; i<3;i++) {
-      UIButton *meBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-      meBtn.frame = CGRectMake((P_Width/3)*i+25, 145, P_Width/3-50, 25);
-      [meBtn setTitle:threeBtnTittle_arr[i] forState:UIControlStateNormal];
-      meBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-      [profileView addSubview:meBtn];
-
-      numLabel = [[UILabel  alloc] initWithFrame:CGRectMake((P_Width/3)*i+30, 170, P_Width/3-60, 25)];
-      numLabel.text = @"12";
-      numLabel.textColor = [UIColor whiteColor];
-      numLabel.textAlignment = NSTextAlignmentCenter;
-      numLabel.font = [UIFont systemFontOfSize:12];
-      [profileView addSubview:numLabel];
-  }
-}
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-
-    return 10;
-}
-//去掉tableView中headerView吸附头部效果
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    if (scrollView == meTableView) {
-//        CGFloat sectionHeaderHeight = 200;
-//        if (scrollView.contentOffset.y <= sectionHeaderHeight&&scrollView.contentOffset.y>= 0) {
-//            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-//        }
-//    }
-//}
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        
-    profileView.backgroundColor = [UIColor clearColor];
-    profileView.userInteractionEnabled = YES;
-    profileImgBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 55, 60, 60)];
-    profileImgBtn.layer.cornerRadius = 30;
-    profileImgBtn.clipsToBounds = YES;
-    [profileImgBtn setBackgroundImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
-    [profileImgBtn addTarget:self action:@selector(imageProfileClick) forControlEvents:UIControlEventTouchUpInside];
-    [profileView addSubview:profileImgBtn];
-    
-    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 58, 60, 30)];
-    nameLabel.text = @"秦静";
-    nameLabel.font = [UIFont systemFontOfSize:16];
-    nameLabel.textColor = [UIColor whiteColor];
-    [profileView addSubview:nameLabel];
-        
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap)];
-        singleTap.numberOfTapsRequired = 1;
-        singleTap.numberOfTouchesRequired = 1;
-        nameLabel.userInteractionEnabled = YES;
-        [nameLabel addGestureRecognizer:singleTap];
-    
-    
-    //signinBtn = [[UIButton alloc] initWithFrame:CGRectMake(P_Width-80, 88, 60, 26)];
-    //[signinBtn setTitle:@"签到" forState:UIControlStateNormal];
-    //signinBtn.backgroundColor = [UIColor lightTextColor];
-   // [signinBtn.layer setBorderWidth:1];
-   //[profileView addSubview:signinBtn];
-
-    for (int i=1; i<3; i++) {
-        UIView *partView = [[UIView alloc] initWithFrame:CGRectMake((P_Width/3)*i-0.5, 160, 1, 15)];
-        partView.backgroundColor = [UIColor whiteColor];
-        [profileView addSubview:partView];
-    }
     for (int i=0; i<3;i++) {
         UIButton *meBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         meBtn.frame = CGRectMake((P_Width/3)*i+25, 145, P_Width/3-50, 25);
@@ -153,6 +185,72 @@
         numLabel.font = [UIFont systemFontOfSize:12];
         [profileView addSubview:numLabel];
     }
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    
+    return 10;
+}
+//去掉tableView中headerView吸附头部效果
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    if (scrollView == meTableView) {
+//        CGFloat sectionHeaderHeight = 200;
+//        if (scrollView.contentOffset.y <= sectionHeaderHeight&&scrollView.contentOffset.y>= 0) {
+//            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+//        }
+//    }
+//}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        
+        profileView.backgroundColor = [UIColor clearColor];
+        profileView.userInteractionEnabled = YES;
+        profileImgBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, 55, 60, 60)];
+        profileImgBtn.layer.cornerRadius = 30;
+        profileImgBtn.clipsToBounds = YES;
+        [profileImgBtn setBackgroundImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
+        [profileImgBtn addTarget:self action:@selector(imageProfileClick) forControlEvents:UIControlEventTouchUpInside];
+        [profileView addSubview:profileImgBtn];
+        
+        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 58, 60, 30)];
+        nameLabel.text = @"秦静";
+        nameLabel.userInteractionEnabled = YES;
+        nameLabel.font = [UIFont systemFontOfSize:16];
+        nameLabel.textColor = [UIColor whiteColor];
+        [profileView addSubview:nameLabel];
+        
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap)];
+        singleTap.numberOfTapsRequired = 1;
+        singleTap.numberOfTouchesRequired = 1;
+        nameLabel.userInteractionEnabled = YES;
+        [nameLabel addGestureRecognizer:singleTap];
+        
+        
+        //signinBtn = [[UIButton alloc] initWithFrame:CGRectMake(P_Width-80, 88, 60, 26)];
+        //[signinBtn setTitle:@"签到" forState:UIControlStateNormal];
+        //signinBtn.backgroundColor = [UIColor lightTextColor];
+        // [signinBtn.layer setBorderWidth:1];
+        //[profileView addSubview:signinBtn];
+        
+        for (int i=1; i<3; i++) {
+            UIView *partView = [[UIView alloc] initWithFrame:CGRectMake((P_Width/3)*i-0.5, 160, 1, 15)];
+            partView.backgroundColor = [UIColor whiteColor];
+            [profileView addSubview:partView];
+        }
+        for (int i=0; i<3;i++) {
+            UIButton *meBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            meBtn.frame = CGRectMake((P_Width/3)*i+25, 145, P_Width/3-50, 25);
+            [meBtn setTitle:threeBtnTittle_arr[i] forState:UIControlStateNormal];
+            meBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+            [profileView addSubview:meBtn];
+            
+            numLabel = [[UILabel  alloc] initWithFrame:CGRectMake((P_Width/3)*i+30, 170, P_Width/3-60, 25)];
+            numLabel.text = @"12";
+            numLabel.textColor = [UIColor whiteColor];
+            numLabel.textAlignment = NSTextAlignmentCenter;
+            numLabel.font = [UIFont systemFontOfSize:12];
+            [profileView addSubview:numLabel];
+        }
     }
     return profileView;
 }
@@ -176,7 +274,6 @@
     meTabName.font = [UIFont systemFontOfSize:15];
     meTabName.textAlignment = NSTextAlignmentLeft;
     meTabName.text = meTabName_arr[indexPath.row];
-   
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -228,7 +325,7 @@
             systemViewController *system = [[systemViewController alloc] init];
             UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:system];
             navi.modalTransitionStyle =  UIModalTransitionStyleFlipHorizontal;
-           [self presentViewController:navi animated:YES completion:nil];
+            [self presentViewController:navi animated:YES completion:nil];
             break;
         }
         default:
@@ -239,27 +336,27 @@
 -(void)imageProfileClick{
     mineCentralViewController *mineCentral = [[mineCentralViewController alloc] init];
     [self presentViewController:mineCentral animated:YES completion:nil];
-
+    
 }
 -(void)singleTap{
     mineCentralViewController *mineCentral = [[mineCentralViewController alloc] init];
     //[self presentViewController:mineCentral animated:YES completion:nil];
     [self.navigationController pushViewController:mineCentral animated:YES];
-
-
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

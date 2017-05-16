@@ -9,5 +9,5 @@
 #import "BaseNaviViewController.h"
 
 @interface patientViewController : BaseNaviViewController
-
+@property(nonatomic,strong)UITableView *tableView;
 @end

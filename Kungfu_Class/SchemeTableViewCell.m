@@ -13,14 +13,14 @@
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.titleImage = [[UIImageView alloc] initWithFrame:CGRectMake(8, 15, 20, 20)];
+        self.titleImage = [[UIImageView alloc] initWithFrame:CGRectMake(8, 22.5, 20, 20)];
         [self.contentView addSubview:self.titleImage];
         
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(36, 12, 60, 16)];
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(36, 15, 60, 18)];
         self.titleLabel.font = [UIFont systemFontOfSize:18];
         [self.contentView addSubview:self.titleLabel];
         
-        self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(36, 29, self.bounds.size.width-50, 16)];
+        self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(36, 38, self.bounds.size.width-50, 16)];
         self.detailLabel.font = [UIFont systemFontOfSize:12];
         self.detailLabel.textColor = [UIColor grayColor];
         [self.contentView addSubview:self.detailLabel];
